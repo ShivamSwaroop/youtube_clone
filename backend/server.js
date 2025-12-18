@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
+import protect from "./middleware/authMiddleware.js";
 
 dotenv.config();
 connectDB();
@@ -17,6 +18,9 @@ app.get("/", (rep, res)=>{
 });
 
 app.use("/api/auth", authRoutes);
+app.get("/api/protected", protect, (req, res)=>{
+    res.json({message: "Protected route accessed", userId : req.user});
+});
 
 const PORT = 5000;
 app.listen(PORT, ()=>{
