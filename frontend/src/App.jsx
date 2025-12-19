@@ -5,6 +5,7 @@ import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import Header from './components/Header.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
+import VideoPlayer from './pages/VideoPlayer.jsx';
 
 function App(){
   const [searchTerm , setSearchTerm] = useState("");
@@ -22,6 +23,7 @@ function App(){
         <Route path="/" element={<Home searchTerm={searchTerm} isSidebarOpen={isSidebarOpen}/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/video/:id" element={<VideoPlayer />}/>
       </Routes>
     </Router>
     </AuthProvider>
