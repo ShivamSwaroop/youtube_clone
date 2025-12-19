@@ -1,8 +1,8 @@
 import { useContext} from "react";
 import {Link} from "react-router-dom";
-import { AuthContext} from "./context/AuthContext.jsx";
+import { AuthContext} from "../context/AuthContext.jsx";
 
-const Header = ( {toggleSidebar})=>{
+const Header = ( {toggleSidebar, searchTerm, setSearchTerm })=>{
     const {user, logout} = useContext(AuthContext);
 
     return(
@@ -11,7 +11,10 @@ const Header = ( {toggleSidebar})=>{
             
             <Link to="/">Youtube Clone</Link>
 
-            <div style={{float: "right" }}>
+            <input type="text" placeholder="Search" value={searchTerm} onChange={(e)=> setSearchTerm(e.target.value)}
+            style={{flex: 1, maxWidth: '400px'}}/>
+
+            <div style={{marginLeft: 'auto'}}>
                 {user ? (
                     <>
                     <span>{user.username}</span>
