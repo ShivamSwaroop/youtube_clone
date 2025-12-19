@@ -6,7 +6,7 @@ export const getVideoById = async (req, res)=>{
     res.json(video);
 } ;
 
-export const likedVideo = async (req, res)=>{
+export const likeVideo = async (req, res)=>{
     const video = await Video.findById(req.params.id);
 
     if(!video.likes.includes(req.user)){
@@ -18,4 +18,14 @@ export const likedVideo = async (req, res)=>{
     res.json(video);
 };
 
+export const addComment = async(req, res)=>{
+    const video = await Video.findById(req.params.id);
+
+    video.comments.push({
+        user: req.user,
+        text: req.body.text
+    });
+    await video.save();
+    res.json(video.comments);
+};
 
