@@ -1,7 +1,8 @@
 import {useParams} from 'react-router-dom';
 import videos from '../data/videos';
+import{AuthContext} from '../context/AuthContext.jsx';
 import {useState, useEffect, useContext} from 'react';
-import { trusted } from 'mongoose';
+
 
 const VideoPlayer = ()=>{
     const {id} = useParams();
