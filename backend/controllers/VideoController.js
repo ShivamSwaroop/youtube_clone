@@ -1,3 +1,4 @@
+import Channel from "../models/Channel.js";
 import Video from '../models/Video.js';
 
 export const getAllVideos = async (req, res) => {
@@ -98,4 +99,47 @@ export const addComment = async (req, res) => {
   }
 };
 
+export const createVideo = async (req, res) => {
+  const channel = await Channel.findOne({ owner: req.user });
+
+  if (!channel) {
+    return res.status(403).json({
+      message: "You must create a channel before uploading videos"
+    });
+  }
+
+  const { title, description, videoUrl, thumbnailUrl, category } = req.body;
+
+  if (!title || !videoUrl) {
+    return res.status(400).json({ message: "Title and video URL are required" });
+  }
+
+  const video = await Video.create({
+    title,
+    description,
+    videoUrl,
+    thumbnailUrl,
+    category,
+    channel: channel._id
+  });
+
+  res.status(201).json(video);
+};
+
+export const deleteVideo = async (req, res) => {
+  const video = await Video.findById(req.params.id);
+
+  if (!video) {
+    return res.status(404).json({ message: "Video not found" });
+  }
+
+  const channel = await Channel.findOne({ owner: req.user });
+
+  if (!channel || video.channel.toString() !== channel._id.toString()) {
+    return res.status(403).json({ message: "Not authorized to delete this video" });
+  }
+
+  await video.deleteOne();
+  res.json({ message: "Video deleted successfully" });
+};
 
