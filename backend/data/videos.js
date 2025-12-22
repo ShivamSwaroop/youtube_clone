@@ -1,20 +1,25 @@
 const videos = [
   {
-    title: "Learn React in 30 Minutes",
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    title: "React Tutorial",
+    description: "Learn React basics",
+    videoUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
     thumbnailUrl: "https://via.placeholder.com/300x180",
-    channelName: "Code with John",
-    views: 15000,
+    channelName: "Code Academy",
+    views: 1200,
+    comments: [],
     category: "React"
   },
   {
-    title: "JavaScript Basics for Beginners",
-    videoUrl: "https://www.w3schools.com/html/movie.mp4",
+    title: "Node.js Crash Course",
+    description: "Backend with Node",
+    videoUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
     thumbnailUrl: "https://via.placeholder.com/300x180",
-    channelName: "JS Mastery",
-    views: 9800,
-    category: "JavaScript"
+    channelName: "Backend School",
+    views: 800,
+    category: "Node",
+    comments: []
   }
 ];
 
 export default videos;
+

@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 const commentSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     text: {
         type: String,
@@ -15,11 +16,23 @@ const commentSchema = new mongoose.Schema({
 const videoSchema = new mongoose.Schema(
     {
         title: String,
+        description: String,
         videoUrl: String,
         thumbnailUrl: String,
         channelName: String,
         views: Number,
         category: String,
+
+        channel: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Channel",
+            default: null
+        },
+
+        views: {
+            type: Number,
+            default: 0
+        },
 
         likes: [
             {
@@ -33,7 +46,7 @@ const videoSchema = new mongoose.Schema(
                 ref: 'User'
             }
         ],
-        comment: [commentSchema]
+        comments: [commentSchema]
     },
     {tomestamps: true}
 );
