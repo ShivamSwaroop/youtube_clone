@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import Filters from "../components/Filters";
 import VideoCard from "../components/VideoCard";
-import videos from "../data/videos";
 
 const Home = ({ searchTerm = "", isSidebarOpen }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [videos, setVideos] = useState([]);
 
   const safeSearchTerm = String(searchTerm || "").toLowerCase();
+
+  useEffect(()=>{
+    fetch("http://localhost:5000/api/videos")
+    .then((res)=> res.json())
+    .then(setVideos);
+  }, []);
 
   const filteredVideos = videos.filter((video) => {
     const categoryMatch =
@@ -43,7 +49,7 @@ const Home = ({ searchTerm = "", isSidebarOpen }) => {
             }}
           >
             {filteredVideos.map((video) => (
-              <VideoCard key={video.videoId} video={video} />
+              <VideoCard key={video._id} video={video} />
             ))}
           </div>
         )}

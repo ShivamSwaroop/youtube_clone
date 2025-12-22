@@ -6,6 +6,9 @@ import Register from './pages/Register.jsx';
 import Header from './components/Header.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import VideoPlayer from './pages/VideoPlayer.jsx';
+import CreateChannel from "./pages/CreateChannel";
+import MyChannel from "./pages/MyChannel";
+import UploadVideo from "./pages/UploadVideo";
 
 function App(){
   const [searchTerm , setSearchTerm] = useState("");
@@ -24,6 +27,9 @@ function App(){
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/video/:id" element={<VideoPlayer />}/>
+        <Route path="/create-channel" element={<CreateChannel />} />
+        <Route path="/my-channel" element={<MyChannel />} />
+        <Route path="/upload" element={<UploadVideo />} />
       </Routes>
     </Router>
     </AuthProvider>

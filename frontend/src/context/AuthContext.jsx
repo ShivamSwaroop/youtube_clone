@@ -1,40 +1,44 @@
-import {createContext , useState, useEffect} from 'react';
+import { createContext, useState, useEffect } from "react";
+import {jwtDecode} from "jwt-decode";
 
 export const AuthContext = createContext();
 
-export const AuthProvider = ({children}) => {
-    const [user, setUser] = useState(null);
-    const [token, setToken] = useState(null);
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
-    useEffect(()=>{
-        const savedToken = localStorage.getItem('token');
-        const savedUser = localStorage.getItem('user');
+  
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
 
-        if(savedToken && savedUser){
-            setToken(savedToken);
-            setUser(JSON.parse(savedUser));
-        }
-    }, []);
+    if (storedToken) {
+      try {
+        const decoded = jwtDecode(storedToken);
+        setUser(decoded);
+        setToken(storedToken);
+      } catch (err) {
+        localStorage.removeItem("token");
+      }
+    }
+  }, []);
 
-    const login = (token, user) =>{
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(user));
-        setToken(token);
-        setUser(user);
-    };
+  
+  const login = (token) => {
+    localStorage.setItem("token", token);
+    const decoded = jwtDecode(token);
+    setUser(decoded);
+    setToken(token);
+  };
 
-    const logout = ()=>{
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        setToken(null);
-        setUser(null);
-    };
+  const logout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+    setToken(null);
+  };
 
-    return(
-        <AuthContext.Provider value={{user, token, login, logout}}>
-            {children}
-        </AuthContext.Provider>
-    );
-
-
+  return (
+    <AuthContext.Provider value={{ user, token, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
