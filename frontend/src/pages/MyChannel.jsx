@@ -2,11 +2,13 @@ import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import VideoCard from "../components/VideoCard";
+import { useNavigate } from "react-router-dom";
 
 const MyChannel = () => {
   const { token } = useContext(AuthContext);
   const [channel, setChannel] = useState(null);
   const [videos, setVideos] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchChannel = async () => {
@@ -45,7 +47,14 @@ const MyChannel = () => {
       <h2>{channel.channelName}</h2>
       <p>{channel.description}</p>
 
-      <h3>Your Videos</h3>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h3>Your Videos</h3>
+
+        <button onClick={() => navigate("/upload")}>
+          Upload Video
+        </button>
+      </div>
+
 
       {videos.length === 0 ? (
         <p>No videos uploaded yet</p>
@@ -59,10 +68,10 @@ const MyChannel = () => {
       <button
         onClick={() =>
           axios
-            .delete(`http://localhost:5000/api/videos/${video._id}`, {
+            .delete(`http://localhost:5000/api/videos/${videos._id}`, {
               headers: { Authorization: `Bearer ${token}` }
             })
-            .then(() => setVideos(videos.filter(v => v._id !== video._id)))
+            .then(() => setVideos(videos.filter(v => v._id !== videos._id)))
         }
       >
         Delete

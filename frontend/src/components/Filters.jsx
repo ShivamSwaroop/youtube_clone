@@ -13,7 +13,7 @@ const Filters = ({ selected, onSelect}) =>{
         <div style={{ margin: '10px 0'}}>
             {categories.map((cat)=>(
                 <button key={cat} onClick = {()=>onSelect(cat)}
-                style={{marginRight: '5px', background: selected === cat? '#ddd' : '#fff', color: '#000'}}
+                style={{marginRight: '5px', background: selected === cat? '#a8a4a4ff' : '#fff', color: '#000'}}
                 >{cat}</button>
             ))}
         </div>

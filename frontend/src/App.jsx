@@ -18,6 +18,7 @@ function App(){
 
   return(
     <AuthProvider>
+      <div style={{width:'100vw',background: '#020202ff', minHeight: '100vh'}}>
     <Router>
       <Header toggleSidebar={()=> setIsSidebarOpen(!isSidebarOpen)} 
         searchTerm={searchTerm} 
@@ -32,6 +33,7 @@ function App(){
         <Route path="/upload" element={<UploadVideo />} />
       </Routes>
     </Router>
+    </div>
     </AuthProvider>
   )
 };
