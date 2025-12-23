@@ -143,3 +143,24 @@ export const deleteVideo = async (req, res) => {
   res.json({ message: "Video deleted successfully" });
 };
 
+
+export const getRecommendedVideos = async (req, res) => {
+  try {
+    const currentVideo = await Video.findById(req.params.id);
+
+    if (!currentVideo) {
+      return res.status(404).json({ message: "Video not found" });
+    }
+     const recommendations = await Video.find({_id: { $ne: currentVideo._id },          
+      category: currentVideo.category          
+    })
+      .limit(8)
+      .sort({ createdAt: -1 });
+
+    res.json(recommendations);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch recommendations" });
+  }
+};
+
+

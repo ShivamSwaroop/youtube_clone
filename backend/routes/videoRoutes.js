@@ -2,7 +2,7 @@ import express from 'express';
 import{ getAllVideos, getVideoById, likeVideo, dislikeVideo, addComment } from '../controllers/VideoController.js';
 import protect from '../middleware/authMiddleware.js';
 import Video from "../models/Video.js";
-import { createVideo, deleteVideo } from "../controllers/VideoController.js";
+import { createVideo, deleteVideo, getRecommendedVideos } from "../controllers/VideoController.js";
 
 
 const router = express.Router();
@@ -16,6 +16,7 @@ router.get("/", async (req, res) => {
   res.json(videos);
 });
 router.get("/", getAllVideos);
+router.get("/:id/recommendations", getRecommendedVideos);
 router.get('/:id', getVideoById);
 router.post('/:id/like', protect, likeVideo);
 router.post('/:id/dislike', protect, dislikeVideo);
