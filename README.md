@@ -133,7 +133,8 @@ bcrypt.js
 # Installation & Setup
 * Clone the Repository
 git clone https://github.com/ShivamSwaroop/youtube_clone.git
-cd youtube-clone
+
+cd youtube_clone
 
 * Backend Setup
 cd backend
